@@ -1,0 +1,30 @@
+plugins {
+    id "java-gradle-plugin"
+    id "maven-publish"
+}
+
+group = property("groupId")
+
+gradlePlugin {
+    plugins {
+        simplePlugin {
+            id = "yevano.github-packages"
+            implementationClass = "yevano.gradle.githubpackages.GitHubPackagesPlugin"
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = property("groupId")
+            artifactId = property("artifactId")
+            version = property("version")
+            from components.java
+        }
+    }
+}
